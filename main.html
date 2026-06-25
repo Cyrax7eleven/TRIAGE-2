@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Triage — Issues</title>
+  <meta name="description" content="Browse, filter, and search your team's GitHub issues at a glance." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 44 44'%3E%3Ccircle cx='22' cy='9' r='6' fill='%23F0A93B'/%3E%3Ccircle cx='10' cy='32' r='6' fill='%233FB950'/%3E%3Ccircle cx='34' cy='32' r='6' fill='%23A371F7'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/main.css" />
+</head>
+<body>
+
+  <div class="page-shell">
+
+    <!-- ===== Navbar ===== -->
+    <header class="navbar">
+      <a href="main.html" class="brand">
+        <svg class="brand-mark" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <circle cx="22" cy="9" r="6" fill="#F0A93B"/>
+          <circle cx="10" cy="32" r="6" fill="#3FB950"/>
+          <circle cx="34" cy="32" r="6" fill="#A371F7"/>
+          <path d="M22 15 L10 26 M22 15 L34 26" stroke="#2A2F3A" stroke-width="2"/>
+        </svg>
+        <span class="brand-name">Triage</span>
+      </a>
+
+      <div class="navbar-actions">
+        <form class="search-form" id="searchForm">
+          <label for="searchInput" class="visually-hidden">Search issues</label>
+          <input type="text" id="searchInput" placeholder="Search issues…" autocomplete="off" />
+          <button type="submit" class="btn btn-primary btn-search">Search</button>
+        </form>
+        <button type="button" class="btn btn-ghost btn-icon" id="signOutBtn" title="Sign out" aria-label="Sign out">⏻</button>
+      </div>
+    </header>
+
+    <!-- ===== Content ===== -->
+    <main class="content">
+
+      <!-- Tabs -->
+      <nav class="tabs" id="tabs" aria-label="Issue filter">
+        <button class="tab-btn active" data-tab="all">All <span class="tab-count" id="countAll"></span></button>
+        <button class="tab-btn" data-tab="open">Open <span class="tab-count" id="countOpen"></span></button>
+        <button class="tab-btn" data-tab="closed">Closed <span class="tab-count" id="countClosed"></span></button>
+      </nav>
+
+      <!-- Summary bar -->
+      <section class="summary-bar" id="summaryBar">
+        <div class="summary-left">
+          <span class="summary-icon">📋</span>
+          <span id="summaryText">Loading issues…</span>
+        </div>
+        <div class="summary-right">
+          <span class="marker is-open"><span class="dot"></span> Open <strong id="markerOpen">0</strong></span>
+          <span class="marker is-closed"><span class="dot"></span> Closed <strong id="markerClosed">0</strong></span>
+        </div>
+      </section>
+
+      <!-- Loading -->
+      <div class="loading-state" id="loadingState">
+        <div class="spinner" role="status" aria-label="Loading"></div>
+        <span>Fetching issues…</span>
+      </div>
+
+      <!-- Empty state -->
+      <div class="empty-state" id="emptyState" style="display:none;">
+        <span class="empty-icon">🔍</span>
+        <strong>No issues found</strong>
+        <span>Try a different search term or switch tabs.</span>
+      </div>
+
+      <!-- Issue grid -->
+      <section class="issue-grid" id="issueGrid" style="display:none;"></section>
+
+    </main>
+  </div>
+
+  <!-- ===== Issue detail modal ===== -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button type="button" class="modal-close" id="modalCloseBtn" aria-label="Close">✕</button>
+      <div class="modal-id" id="modalId"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta" id="modalMeta"></div>
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-grid" id="modalGrid"></div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
